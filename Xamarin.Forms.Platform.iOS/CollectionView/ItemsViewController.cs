@@ -114,7 +114,7 @@ namespace Xamarin.Forms.Platform.iOS
 			if (_isEmpty)
 			{
 				UnbindCells();
-				_measurementCells.Clear();
+				_measurementCells?.Clear();
 				ItemsViewLayout?.ClearCellSizeCache();
 			}
 
@@ -231,7 +231,7 @@ namespace Xamarin.Forms.Platform.iOS
 
 		public virtual void UpdateItemsSource()
 		{
-			_measurementCells.Clear();
+			_measurementCells?.Clear();
 			ItemsViewLayout?.ClearCellSizeCache();
 			ItemsSource?.Dispose();
 			ItemsSource = CreateItemsViewSource();
@@ -275,7 +275,7 @@ namespace Xamarin.Forms.Platform.iOS
 			var bindingContext = ItemsSource[indexPath];
 
 			// If we've already created a cell for this index path (for measurement), re-use the content
-			if (_measurementCells.TryGetValue(bindingContext, out TemplatedCell measurementCell))
+			if (_measurementCells?.TryGetValue(bindingContext, out TemplatedCell measurementCell) ?? false)
 			{
 				_measurementCells.Remove(bindingContext);
 				measurementCell.ContentSizeChanged -= CellContentSizeChanged;
